@@ -113,7 +113,7 @@ if vis_image is not None and aux_image is not None:
 
     c1, c2 = st.columns(2)
     c1.image(vis_image, caption="Visible Light", use_column_width=True)
-    c2.image(aux_image, caption=f"{aux_type} Light", use_column_width=True)
+    c2.image(aux_image_display, caption=f"{aux_type} Light", use_column_width=True)
     
     user_guess = st.radio("Your Hypothesis:", options, horizontal=True)
 
@@ -136,8 +136,8 @@ if vis_image is not None and aux_image is not None:
         c3.image(segmented, caption="3. Extracted Pigment", use_column_width=True)
         
         # C. 计算分数
-        ir_in = aux_image if aux_type == "IR" else None
-        uv_in = aux_image if aux_type == "UV" else None
+        ir_in = aux_image_calc if aux_type == "IR" else None
+        uv_in = aux_image_calc if aux_type == "UV" else None
         
         metrics = calculate_metrics(vis_image, ir_in, uv_in, mask)
         
