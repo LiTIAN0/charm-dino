@@ -35,11 +35,11 @@ else:
 if input_method == "📂 Use Demo Gallery":
     # 模拟内置图片库
     if target_color == "Black":
-        samples = ["I32_black (Iron Gall)", "I53_black (Carbon-like)"]
+        samples = ["I32_black (Iron Gall)", "II115_black (Carbon-like)"]
     elif target_color == "Blue":
-        samples = ["I32_blue (Mineral)", "Outlier_blue (Transparent)"]
+        samples = ["I32_blue (Plant-based)", "III125_blue (Mineral)"]
     else:
-        samples = ["I32_red (Mineral/Cinnabar)"]
+        samples = ["I32_red (Mineral/Cinnabar)", "VII78_red (Mineral/Cinnabar)"]
         
     choice = st.sidebar.selectbox("Select Sample:", samples)
     base_name = choice.split(" ")[0]
@@ -50,7 +50,7 @@ if input_method == "📂 Use Demo Gallery":
         vis_image = cv2.cvtColor(cv2.imread(vis_path), cv2.COLOR_BGR2RGB)
         
         aux_path = os.path.join("demo_images", f"{base_name}_{aux_type}.bmp")
-        aux_image = cv2.imread(aux_path, cv2.IMREAD_GRAYSCALE)
+        aux_image = cv2.imread(aux_path)
     except:
         st.sidebar.error(f"Missing demo files for {base_name}")
 
@@ -65,7 +65,7 @@ else:
         
         # 解码 Aux 为灰度
         file_bytes_aux = np.asarray(bytearray(u_aux.read()), dtype=np.uint8)
-        aux_image = cv2.imdecode(file_bytes_aux, cv2.IMREAD_GRAYSCALE)
+        aux_image = cv2.imdecode(file_bytes_aux, cv2.IMREAD_COLOR)
 
 # ==========================================
 # 2. 主界面
@@ -146,8 +146,8 @@ if vis_image is not None and aux_image is not None:
                          'steps': [{'range': [0, 0.5], 'color': "lightgray"},
                                    {'range': [0.9, 1.2], 'color': "lightgreen"}]}))
             
-            if final_score > 0.9: final_pred = "Iron Gall Ink"
-            elif final_score < 0.5: final_pred = "Carbon Ink"
+            if final_score > 0.95: final_pred = "Iron Gall Ink"
+            elif final_score < 0.85: final_pred = "Carbon Ink"
             else: final_pred = "Mixed / Thick Ink"
             
         elif target_color == "Blue":
