@@ -50,7 +50,12 @@ if input_method == "📂 Use Demo Gallery":
         vis_image = cv2.cvtColor(cv2.imread(vis_path), cv2.COLOR_BGR2RGB)
         
         aux_path = os.path.join("demo_images", f"{base_name}_{aux_type}.bmp")
-        aux_image = cv2.imread(aux_path, cv2.IMREAD_UNCHANGED)
+        # 修改后：以彩色模式读取用于显示，计算时再转灰度
+        # 1. 读取为彩色 (BGR -> RGB) 用于显示
+        aux_image_display = cv2.cvtColor(cv2.imread(aux_path), cv2.COLOR_BGR2RGB)
+        
+        # 2. 转换为灰度 用于计算分数
+        aux_image_calc = cv2.cvtColor(aux_image_display, cv2.COLOR_RGB2GRAY)
     except:
         st.sidebar.error(f"Missing demo files for {base_name}")
 
@@ -65,7 +70,10 @@ else:
         
         # 解码 Aux 为灰度
         file_bytes_aux = np.asarray(bytearray(u_aux.read()), dtype=np.uint8)
-        aux_image = cv2.imdecode(file_bytes_aux, cv2.IMREAD_UNCHANGED)
+        # 解码为彩色用于显示
+        aux_image_display = cv2.cvtColor(cv2.imdecode(file_bytes_aux, 1), cv2.COLOR_BGR2RGB)
+        # 转灰度用于计算
+        aux_image_calc = cv2.cvtColor(aux_image_display, cv2.COLOR_RGB2GRAY)
 
 # ==========================================
 # 2. 主界面

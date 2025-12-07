@@ -104,7 +104,6 @@ def calculate_metrics(vis_rgb, ir_gray=None, uv_gray=None, mask=None):
     
     # --- 2. IR 分数计算 (适用于 Black/Blue) ---
     if ir_gray is not None:
-        ir_gray = cv2.cvtColor(ir_gray, cv2.COLOR_BGR2GRAY)
         ink_ir = np.median(ir_gray[mask > 0])
         bg_ir = np.median(ir_gray[bg_mask > 0])
         
@@ -118,7 +117,6 @@ def calculate_metrics(vis_rgb, ir_gray=None, uv_gray=None, mask=None):
 
     # --- 3. UV 分数计算 (适用于 Red) ---
     if uv_gray is not None:
-        uv_gray = cv2.cvtColor(uv_gray, cv2.COLOR_BGR2GRAY)
         ink_uv = np.median(uv_gray[mask > 0])
         bg_uv = np.median(uv_gray[bg_mask > 0])
         
