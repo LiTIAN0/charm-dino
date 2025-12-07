@@ -50,7 +50,7 @@ if input_method == "📂 Use Demo Gallery":
         vis_image = cv2.cvtColor(cv2.imread(vis_path), cv2.COLOR_BGR2RGB)
         
         aux_path = os.path.join("demo_images", f"{base_name}_{aux_type}.bmp")
-        aux_image = cv2.imread(aux_path)
+        aux_image = cv2.imread(aux_path, cv2.IMREAD_UNCHANGED)
     except:
         st.sidebar.error(f"Missing demo files for {base_name}")
 
@@ -65,7 +65,7 @@ else:
         
         # 解码 Aux 为灰度
         file_bytes_aux = np.asarray(bytearray(u_aux.read()), dtype=np.uint8)
-        aux_image = cv2.imdecode(file_bytes_aux, cv2.IMREAD_COLOR)
+        aux_image = cv2.imdecode(file_bytes_aux, cv2.IMREAD_UNCHANGED)
 
 # ==========================================
 # 2. 主界面
