@@ -20,7 +20,6 @@ st.sidebar.header("2. Image Input")
 input_method = st.sidebar.radio("Source:", ["📂 Use Demo Gallery", "📤 Upload Images"])
 
 vis_image = None # RGB format
-aux_image = None # IR or UV (Grayscale)
 aux_type = "IR"  # Default
 
 # 逻辑分支：不同颜色需要不同的辅助图片
@@ -79,7 +78,7 @@ else:
 # 2. 主界面
 # ==========================================
 
-if vis_image is not None and aux_image is not None:
+if vis_image is not None and aux_image_display is not None:
     
     # --- Step 1: Human Judgment (动态指示) ---
     st.subheader("Step 1: Human Inspection")
