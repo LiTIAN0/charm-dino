@@ -8,7 +8,7 @@ def segment_color_patch(img_rgb, target_color_name):
     if img_rgb is None:
         return None, None
     
-    img_hsv = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2HSV)
+    img_hsv = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2HSV)
     
     target = target_color_name.lower()
     final_mask = np.zeros((img_rgb.shape[0], img_rgb.shape[1]), dtype=np.uint8)
